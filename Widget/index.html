@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <link rel="stylesheet" href="css/style.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+   <div class="wrapper">
+      <header>
+         <ul class="menu">
+            <li class="menu-item">О мероприятии</li>
+            <li class="menu-item">Регистрация</li>
+            <li class="menu-item">Стоимость участия</li>
+            <li class="menu-item">Спикеры</li>
+            <div class="burger">
+               <img src="src/Меню.png" alt="">
+            </div>
+         </ul>
+         <div class="banner">
+            <img class="banner-logo" src="src/лого.png" alt="Logo">
+            <h1 class="banner-iventName">НАЗВАНИЕ МЕРОПРИЯТИЯ</h1>
+            <p class="banner-date">4 МАЯ 2049</p>
+            <p class="banner-address">в самом центре страны</p>
+            <button class="banner-button" id="openRegistrationDialog">Регистрация</button>
+         </div>
+      </header>
+      <div class="content">
+         <div class="registration">
+            <div class="column-wrapper">
+               <div class="registation-info">
+                  <p>
+                     Дорогие друзья!
+                  </p>
+                  <p>
+                     <span>Lorem ipsum</span> dolor sit amet, consectetur adipiscing elit, 
+                     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                     nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                     reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+                     pariatur. 
+                  </p>
+                  <p>
+                     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui 
+                     officia deserunt mollit anim id est laborum.
+                  </p>
+               </div>
+               <div class="registraion-data">
+                  <h2>Регистрация</h2>
+                  <table>
+                     <tr>
+                        <th colspan="2">Пожалуйста, проверьте правильность введенных данных:</th>
+                     </tr>
+                     <tr>
+                        <td>
+                           &nbsp;
+                        </td>
+                        <td>
+                           &nbsp;
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           ФИО:
+                        </td>
+                        <td id="FullNameTableCell">
+                           Иванов Иван Иванович
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           Место работы:
+                        </td>
+                        <td id="JobTableCell">
+                           DIRECTUM
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           E-mail:
+                        </td>
+                        <td id="EmailTableCell">
+                           ivanov_ii@directum.ru
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="price">
+            <div class="column-wrapper">
+               <h2>Стоимость участия</h2>
+               <p>(на 1 человека)</p>
+               <table>
+                  <tr>
+                     <th>
+                        &nbsp;
+                     </th>
+                     <th>
+                        Стоимость ДО 1 января
+                     </th>
+                     <th>
+                        Стоимость ПОСЛЕ 1 января
+                     </th>
+                  </tr>
+                  <tr>
+                     <td>С проживанием в 2-местном номере</td>
+                     <td>30 000 ₽</td>
+                     <td>35 000 ₽</td>
+                  </tr>                  
+                  <tr>
+                     <td>Доплата за 1-местное проживание</td>
+                     <td>500 ₽</td>
+                     <td>1 500 ₽</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="galery">
+            <h2>Галерея</h2>
+            <div class="galery-frame">
+               <ul class="galery-frame" id="galeryFrame">
+                  <li class="galery-frameItem-visible"><img src="src/image (1).png" alt=""></li>
+                  <li class="galery-frameItem-invisible"><img src="src/image (2).png" alt=""></li>
+                  <li class="galery-frameItem-invisible"><img src="src/image 2 (1).png" alt=""></li>
+               </ul>
+               <div class="galery-indicators" id="galeryIndicators">
+                  <!-- <span class="galery-indicatorsItem selected"></span>
+                  <span class="galery-indicatorsItem"></span>
+                  <span class="galery-indicatorsItem"></span> -->
+               </div>
+            </div>
+
+         </div>
+         <div class="speakers">
+            <div class="column-wrapper">
+               <h2>Готовятся к общению</h2>
+               <ul class="speakers-list">
+                  <li class="speakers-listItem">
+                     <img src="src/image.png" alt="speakerPhoto" class="speackers-listItemImg">
+                     <h3 class="speackers-listItemImg">Детектив пикачу</h3>
+                     <p class="speackers-listItemAbout">уморительный, остроумный и обаятельный сыщик</p>
+                  </li>
+                  <li class="speakers-listItem">
+                     <img src="src/image.png" alt="speakerPhoto" class="speackers-listItemImg">
+                     <h3 class="speackers-listItemImg">Детектив пикачу</h3>
+                     <p class="speackers-listItemAbout">уморительный, остроумный и обаятельный сыщик</p>
+                  </li>
+                  <li class="speakers-listItem">
+                     <img src="src/image.png" alt="speakerPhoto" class="speackers-listItemImg">
+                     <h3 class="speackers-listItemImg">Детектив пикачу</h3>
+                     <p class="speackers-listItemAbout">уморительный, остроумный и обаятельный сыщик</p>
+                  </li>
+                  <li class="speakers-listItem">
+                     <img src="src/image.png" alt="speakerPhoto" class="speackers-listItemImg">
+                     <h3 class="speackers-listItemImg">Детектив пикачу</h3>
+                     <p class="speackers-listItemAbout">уморительный, остроумный и обаятельный сыщик</p>
+                  </li>
+                  <li class="speakers-listItem">
+                     <img src="src/image.png" alt="speakerPhoto" class="speackers-listItemImg">
+                     <h3 class="speackers-listItemImg">Детектив пикачу</h3>
+                     <p class="speackers-listItemAbout">уморительный, остроумный и обаятельный сыщик</p>
+                  </li>
+                  <li class="speakers-listItem">
+                     <img src="src/image.png" alt="speakerPhoto" class="speackers-listItemImg">
+                     <h3 class="speackers-listItemImg">Детектив пикачу</h3>
+                     <p class="speackers-listItemAbout">уморительный, остроумный и обаятельный сыщик</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <footer>
+         <img src="src/image 2.png" alt="Logo">
+         <p>© DIRECTUM, 2019</p>
+      </footer>
+
+      <div class="registrationForm">
+         <div class="blur">
+         </div>
+         <form>
+            <h2>Регистрация</h2>
+            <input type="text" value="" placeholder="ФИО" id="fullNameInput"></input>
+            <input type="text" value="" placeholder="Email" id="emailInput"></input>
+            <button id="registrationSubmitButton">Регистрация</button>
+            <img src="src/Group 3.1.png" alt="" class="closeButton" id="closeRegistrationFormButton">
+         </form>
+      </div>
+   </div>
+   
+   <script src="script.js"></script>
+</body>
+</html>
