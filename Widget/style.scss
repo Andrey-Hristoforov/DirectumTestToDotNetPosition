@@ -89,6 +89,95 @@ body{
    }
 }
 
+.widget{
+   .content{
+      flex: 1 1 auto;
+      display:flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      select{
+         max-width: 150px;
+      }
+      .weatherData{
+         flex: 1 1 auto;
+         display:flex;
+         flex-direction: column;
+         justify-content: space-between;
+         width: 100%;
+         
+         p{
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+         }
+
+         .weatherData-cityName{
+            font-size: 18px;
+         }
+      }
+   }
+}
+
+.widget{
+   .content{
+      flex: 1 1 auto;
+      display:flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content:space-around;
+
+      .currencyCelect{
+         display: flex;
+         justify-content: center;
+   
+         div{
+            height: 30px;
+   
+            display: flex;
+            align-items: center;
+   
+            &:first-child{
+               margin-right: 10px;
+            }
+   
+            &:last-child{
+               margin-left: 10px;
+            }
+            select{
+               margin-bottom: 2px;
+            }
+         }
+      }
+
+      p.currencyRate{
+         font-size: 20px;
+         height: 30px;
+      }
+   
+      .CurrencyTransfer{
+         //width: 100%;
+         display: flex;
+         justify-content: center;
+   
+         .CurrencyTransfer-Item{
+            display: flex;
+            align-items: center;
+   
+            input{
+               margin-bottom: 2px;
+               max-width: 90px;
+            }
+
+            &:first-child{
+               margin-right: 20px;
+            }
+         }
+      }
+   }
+}
+
 .choosingWidgetDialog{
    position: absolute;
    top:0;
@@ -106,5 +195,20 @@ body{
       height: 300px;
       background-color: #fff;
       border: 1px solid black;
+
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+   }
+   
+   .choosingWidgetDialog-option{
+      height: 54px;
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid black;
+
+      background-color: lightgray;
+
+      cursor: pointer;
    }
 }
