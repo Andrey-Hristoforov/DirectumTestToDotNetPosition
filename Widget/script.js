@@ -18,7 +18,8 @@ function WidgetColunmDragoveredHandler(event)
    event.preventDefault();
    if(dragged.parentElement === event.target.parentElement)
       return;
-   dragovered = event.target;
+   if(event.target.classList.contains("widgetColumnWrapper"))
+      dragovered = event.target;
 }
 
 function WidgetColunmDragleavedHandler(event){
@@ -42,23 +43,41 @@ class Widget{
       this.Shell.classList.add("widget");
       this.Shell.style.color = tcolor;
       this.Shell.style.background = bgcolor;
+      this.Header = document.createElement("div");
+      this.Header.classList.add("header");
+      this.CloseButton = document.createElement("p");
+      this.HtmlElement = undefined;
+
       this.Label = document.createElement("h2");
 
       this.Shell.addEventListener('dragstart', WidgetDragStartHandler);
       this.Shell.addEventListener('dragend', WidgetDragEndHandler);
+      this.CloseButton.addEventListener("click", (e) => {e.target
+         .parentElement
+         .parentElement
+         .parentElement
+         .removeChild(this.ToHTMLElement())});
 
       this.Label.innerHTML = labelText;
+      this.CloseButton.innerHTML = "x";
    }
    Insert(parent){
       parent.appendChild(this.ToHTMLElement());
    }
 
    ToHTMLElement(){
-      this.Shell.appendChild(this.Label);
+      if(this.HtmlElement == undefined)
+      {
+         this.Header.appendChild(this.Label);
+         this.Header.appendChild(this.CloseButton);
+         this.Shell.appendChild(this.Header);
+   
+         this.Shell.draggable = true;
 
-      this.Shell.draggable = true;
+         this.HtmlElement = this.Shell;
+      }
 
-      return this.Shell;
+      return this.HtmlElement;
    }
 }
 
