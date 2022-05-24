@@ -1,4 +1,6 @@
-﻿namespace LoggerIntegrationExample
+﻿using Customlogging;
+
+namespace LoggerIntegrationExample
 {
     public class ExceptionsCatchMiddleware
     {
@@ -15,7 +17,8 @@
             }
             catch(Exception ex)
             {
-                CustomLogger.CustomLogger.GetLogger().LogException(this.ToString(), ex, false);
+                CustomLogger.GetLogger()
+                    .LogException(this.ToString() ?? "ExceptionsCatchMiddleware", ex, false);
             }
             return;
         }

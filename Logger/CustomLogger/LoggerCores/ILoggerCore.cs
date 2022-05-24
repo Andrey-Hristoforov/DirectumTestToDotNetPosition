@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using NLog;
 
-namespace CustomLogger
+namespace Customlogging
 {
-    internal interface ILoggerCore
+    public interface ILoggerCore
     {
         public void LogDebug(string message);
         public void LogInfo(string message);

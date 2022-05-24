@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Newtonsoft.Json;
 
-namespace CustomLogger
+namespace Customlogging
 {
     public class CustomLogger : ILogger
     {
@@ -10,12 +10,23 @@ namespace CustomLogger
         private static CustomLogger? _instance;
         private static object syncRoot = new Object();
 
-        private static Dictionary<LogMessageSeverity, Action<string>>? _severityToAction;
+        private Dictionary<LogMessageSeverity, Action<string>> _severityToAction;
 
         ILoggerCore _loggerCore;
-        private CustomLogger(string logFileName)
+        ILoggerMessageTemplateProvider _messageTemplate;
+
+        private CustomLogger(ILoggerCore? loggerCore, ILoggerMessageTemplateProvider? messageTemplate, string? logFileName)
         {
-            _loggerCore = new NLogLoggerCore(GetPathFromConfigFile() ?? logFileName);
+            if (loggerCore != null)
+                _loggerCore = loggerCore;
+            else
+                _loggerCore = new NLogLoggerCore(GetPathFromConfigFile() ?? _defaultLogFilePath);
+
+            if (messageTemplate != null)
+                _messageTemplate = messageTemplate;
+            else
+                _messageTemplate = new BlockTemplateProvider();
+
             _severityToAction = new Dictionary<LogMessageSeverity, Action<string>>()
             {
                 { LogMessageSeverity.Debug, _loggerCore.LogDebug },
@@ -23,6 +34,29 @@ namespace CustomLogger
                 { LogMessageSeverity.Warning, _loggerCore.LogWarning },
                 { LogMessageSeverity.Error, _loggerCore.LogError }
             };
+        }
+
+        public static void CustomLoggerInit(ILoggerCore? loggerCore)
+        {
+            if (loggerCore == null)
+                throw new ArgumentNullException("loggerCore was null");
+            _instance = new CustomLogger(loggerCore, null, null);
+        }
+
+        public static void CustomLoggerInit(ILoggerMessageTemplateProvider? templateProvider)
+        {
+            if (templateProvider == null)
+                throw new ArgumentNullException("templateProvider was null");
+            _instance = new CustomLogger(null, templateProvider, null);
+        }
+
+        public static void CustomLoggerInit(ILoggerCore? loggerCore, ILoggerMessageTemplateProvider? templateProvider)
+        {
+            if (loggerCore == null)
+                throw new ArgumentNullException("loggerCore was null");
+            if (templateProvider == null)
+                throw new ArgumentNullException("templateProvider was null");
+            _instance = new CustomLogger(loggerCore, templateProvider, null);
         }
 
         private string? GetPathFromConfigFile()
@@ -44,7 +78,7 @@ namespace CustomLogger
                 lock (syncRoot)
                 {
                     if (_instance == null)
-                        _instance = new CustomLogger(_defaultLogFilePath);
+                        _instance = new CustomLogger(null, null, _defaultLogFilePath);
                 }
             }
             return _instance;
@@ -54,36 +88,31 @@ namespace CustomLogger
             if (severity == LogMessageSeverity.Debug)
             {
 #if DEBUG
-                _loggerCore.LogDebug(CommonMessageTemplate(DateTime.Now, severity.ToString(), source, text));
+                _loggerCore.LogDebug(
+                    _messageTemplate
+                    .CommonMessageTemplate(
+                        DateTime.Now,
+                        severity.ToString(),
+                        source, text));
                 return;
 #endif
             }
-            _severityToAction[severity](CommonMessageTemplate(DateTime.Now, severity.ToString(), source, text));
+            _severityToAction[severity](_messageTemplate
+                .CommonMessageTemplate(
+                DateTime.Now, 
+                severity.ToString(), 
+                source, text));
         }
         public void LogException(string source, Exception exception, bool isCritical)
         {
-            _loggerCore.LogException(ExceptionMessageTemplate(
-                DateTime.Now,
-                isCritical,
-                source,
-                exception.Message,
-                exception.StackTrace ?? "[StackTraceWasNull]"
-                ));
+            _loggerCore.LogException(_messageTemplate.
+                ExceptionMessageTemplate(
+                    DateTime.Now,
+                    isCritical,
+                    source,
+                    exception.Message,
+                    exception.StackTrace ?? "[StackTraceWasNull]"));
         }
 
-        private string CommonMessageTemplate(DateTime dateTime, string level, string sender, string message)
-            => "time: " + dateTime.ToString() + "\n" +
-            "level: " + level.ToUpper() + "\n" +
-            "sender: " + sender + "\n" +
-            "message: " + message + "\n" +
-            "------------------------------------------";
-
-        private string ExceptionMessageTemplate(DateTime dateTime, bool isCritical, string sender, string message, string stackTrace)
-            => "time: " + dateTime.ToString() + "\n" +
-            (isCritical ? "CRITICAL EXCEPTION!!!" : "EXCEPTION") + "\n" +
-            "sender: " + sender + "\n" +
-            "message: " + message + "\n" +
-            "stackTrace: " + stackTrace + "\n" +
-            "------------------------------------------";
     }
 }

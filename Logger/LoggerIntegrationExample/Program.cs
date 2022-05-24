@@ -1,10 +1,10 @@
-using CustomLogger;
+using Customlogging;
 using LoggerIntegrationExample;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-var logger = CustomLogger.CustomLogger.GetLogger();
+var logger = Customlogging.CustomLogger.GetLogger();
 
 app.UseMiddleware<LogUserIpMiddleware>();
 app.UseMiddleware<ExceptionsCatchMiddleware>();
@@ -18,7 +18,7 @@ app.Map("/logwarn", async (context) =>
 {
     if(context.Request.Query.Count == 0)
     {
-        CustomLogger.CustomLogger.GetLogger().LogMessage(
+        Customlogging.CustomLogger.GetLogger().LogMessage(
             app.ToString(),
             "0 arguments transfered",
             LogMessageSeverity.Error);
@@ -32,7 +32,7 @@ app.Map("/logwarn", async (context) =>
     }
     message = message.Substring(0, message.Length - 2);
     message += ".";
-    CustomLogger.CustomLogger.GetLogger().LogMessage(
+    Customlogging.CustomLogger.GetLogger().LogMessage(
         app.ToString(),
         message,
         LogMessageSeverity.Warning

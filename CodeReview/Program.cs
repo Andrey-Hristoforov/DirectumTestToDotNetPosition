@@ -111,6 +111,12 @@ namespace CodeReview
             (this IEnumerable<KeyValuePair<T1, T2>> pairs, KeyValuePair<T1, T2> toBeAdded)
             where T1 : IComparable<T1>
         {
+            if(pairs.Count() == 0)
+            {
+                yield return toBeAdded;
+                yield break;
+            }
+
             bool itsInsertedAlready = false;
             foreach (var p in pairs)
             {

@@ -13,7 +13,7 @@ namespace Tests.CodeReview_Tests
         {
             new int[]{100, -100, 100, 101 },
             new int[]{100, -100, 100, -101 },
-            new int[]{100000, -100, 100, 0 },
+            new int[]{10000, -100, 100, 0 },
             new int[]{100, -100, 100, 1 },
             new int[]{100, -100, 100, -1 },
         };
@@ -35,6 +35,20 @@ namespace Tests.CodeReview_Tests
             Assert.True(equivalence, "Sequences were not equal");
         }
 
+        [Test]
+        public void Func1_Empty_ContainsInsertedPair()
+        {
+            var arr = new KeyValuePair<int, string>[]{ };
+            var expectedLegth = 1;
+            var expectedKey = 11;
+            var expectedValue = "new pair";
+
+            CodeReview.Methods.Func1(ref arr, expectedKey, expectedValue);
+
+            Assert.AreEqual(expectedLegth, arr.Length);
+            Assert.AreEqual(expectedKey, arr[0].Key);
+            Assert.AreEqual(expectedValue, arr[0].Value);
+        }
 
         [Test, TestCaseSource("TestCases")]
         public void SafetyRefactored_LongNotSortedRandomArr_EqualToSorted(int arrSize, int bottomBound, int topBound, int newKey)
@@ -53,6 +67,20 @@ namespace Tests.CodeReview_Tests
             Assert.True(equivalence, "Sequences were not equal");
         }
 
+        [Test]
+        public void SafetyRefactored_Empty_ContainsInsertedPair()
+        {
+            var arr = new KeyValuePair<int, string>[] { };
+            var expectedLegth = 1;
+            var expectedKey = 11;
+            var expectedValue = "new pair";
+
+            CodeReview.Methods.SafetyRefactored(ref arr, expectedKey, expectedValue);
+
+            Assert.AreEqual(expectedLegth, arr.Length);
+            Assert.AreEqual(expectedKey, arr[0].Key);
+            Assert.AreEqual(expectedValue, arr[0].Value);
+        }
 
         [Test, TestCaseSource("TestCases")]
         public void AddToSortedArray_LongSortedRandomArr_EqualToSorted(int arrSize, int bottomBound, int topBound, int newKey)
@@ -73,6 +101,19 @@ namespace Tests.CodeReview_Tests
             Assert.True(equivalence, "Sequences were not equal");
         }
 
+        [Test]
+        public void AddToSortedArray_Empty_ContainsInsertedPair()
+        {
+            var arr = new KeyValuePair<int, string>[] { };
+            var expectedLegth = 1;
+            var expectedPair = new KeyValuePair<int, string>(11, "new pair");
+
+            CodeReview.Methods.AddToSortedArray(ref arr, expectedPair);
+
+            Assert.AreEqual(expectedLegth, arr.Length);
+            Assert.AreEqual(expectedPair, arr[0]);
+        }
+
 
         [Test, TestCaseSource("TestCases")]
         public void AddToSortedAndReturn_LongSortedRandomArr_EqualToSorted(int arrSize, int bottomBound, int topBound, int newKey)
@@ -89,6 +130,19 @@ namespace Tests.CodeReview_Tests
                 .Select((elem, i) => elem.ToString() == expectedReslut[i].ToString())
                 .All(res => res == true);
             Assert.True(equivalence, "Sequences were not equal");
+        }
+
+        [Test]
+        public void AddToSortedAndReturn_Empty_ContainsInsertedPair()
+        {
+            var arr = new KeyValuePair<int, string>[] { };
+            var expectedLegth = 1;
+            var expectedPair = new KeyValuePair<int, string>(11, "new pair");
+
+            arr = arr.AddToSortedAndReturn(expectedPair).ToArray();
+
+            Assert.AreEqual(expectedLegth, arr.Length);
+            Assert.AreEqual(expectedPair, arr.FirstOrDefault());
         }
 
         private static List<KeyValuePair<int, string>> GenerateListOfPairs(int size, int bottom, int top)

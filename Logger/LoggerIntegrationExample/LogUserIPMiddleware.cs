@@ -1,4 +1,4 @@
-﻿using CustomLogger;
+﻿using Customlogging;
 
 namespace LoggerIntegrationExample
 {
@@ -14,8 +14,8 @@ namespace LoggerIntegrationExample
             var ipAddress = context.Connection.RemoteIpAddress;
             var route = context.Request.Path;
 
-            CustomLogger.CustomLogger.GetLogger()
-                .LogMessage(this.ToString(),
+            Customlogging.CustomLogger.GetLogger()
+                .LogMessage(this.ToString() ?? "LogUserIpMiddleware",
                     "Запрос с адреса: " + ipAddress + "\n" + 
                     "МаршрутЗапроса: " + route,
                     LogMessageSeverity.Debug);
